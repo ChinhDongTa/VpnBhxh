@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32407.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VpnDomain", "VpnDomain\VpnDomain.csproj", "{AECBF119-2F2F-4979-B9AB-0673637C2F31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vpn.WebUI", "Vpn.WebUI\Vpn.WebUI.csproj", "{F2FDA3D8-B153-4C28-81FE-CE5558CAAB7D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AECBF119-2F2F-4979-B9AB-0673637C2F31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AECBF119-2F2F-4979-B9AB-0673637C2F31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AECBF119-2F2F-4979-B9AB-0673637C2F31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AECBF119-2F2F-4979-B9AB-0673637C2F31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2FDA3D8-B153-4C28-81FE-CE5558CAAB7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2FDA3D8-B153-4C28-81FE-CE5558CAAB7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2FDA3D8-B153-4C28-81FE-CE5558CAAB7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2FDA3D8-B153-4C28-81FE-CE5558CAAB7D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E9EED7F6-A998-4968-9C03-1549FD7568CE}
+	EndGlobalSection
+EndGlobal
