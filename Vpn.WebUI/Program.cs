@@ -2,13 +2,15 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using MudBlazor.Services;
 using Vpn.WebUI.Data;
+using VpnDomain;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddSingleton<IVpnBhxhRepo, VpnBhxhRepo > ();
+builder.Services.AddSingleton<VpnDtoService>();
 builder.Services.AddMudServices();
 
 var app = builder.Build();
