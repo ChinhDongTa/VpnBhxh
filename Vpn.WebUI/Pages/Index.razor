@@ -12,14 +12,20 @@
     <MudItem xs="12" sm="7">
         <MudCard>
             <MudCardContent>
+                <MudSelect Placeholder="Chon nhan vien" @bind-Value="staffIdSelected" @onchange="@ChangedItem">
+                    @foreach(var vpn in vpnDtos)
+                        {
+                            <MudSelectItem Value="@vpn.StaffId">@vpn.HoTen</MudSelectItem>
+                        }
+                    </MudSelect>
                 <MudTextField Label="First name" HelperText="Max. 8 characters"
                               @bind-Value="model.Username" For="@(() => model.Username)"/>
                 <MudTextField Label="Email" Class="mt-3"
                               @bind-Value="model.Email" For="@(() => model.Email)"/>
                 <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
                               @bind-Value="model.Password" For="@(() => model.Password)" InputType="InputType.Password"/>
-                <MudTextField Label="Password" HelperText="Repeat the password" Class="mt-3"
-                              @bind-Value="model.Password2" For="@(() => model.Password2)" InputType="InputType.Password"/>
+                <MudTextField Label="Staff Id Select" HelperText="Repeat the password" Class="mt-3"
+                              @bind-Value="staffIdSelected" InputType="InputType.Number"/>
             </MudCardContent>
             <MudCardActions>
                 <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
@@ -51,6 +57,8 @@
 @code {
     RegisterAccountForm model = new RegisterAccountForm();
     VpnDto vpn = new();
+    IEnumerable<VpnDto> vpnDtos;
+    int staffIdSelected;
     bool success;
 
     public class RegisterAccountForm
@@ -71,6 +79,11 @@
         [Compare(nameof(Password))]
         public string Password2 { get; set; }
 
+    }
+
+    void ChangedItem()
+    {
+        
     }
 
     private void OnValidSubmit(EditContext context)
