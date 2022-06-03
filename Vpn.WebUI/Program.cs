@@ -10,7 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<IVpnBhxhRepo, VpnBhxhRepo > ();
-builder.Services.AddSingleton<VpnDtoService>();
+builder.Services.AddSingleton<IVpnDtoService, VpnDtoService>();
+builder.Services.AddSingleton<HttpClient>();
 builder.Services.AddMudServices();
 
 var app = builder.Build();
@@ -26,7 +27,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
-
+app.MapControllers();
 app.UseRouting();
 
 app.MapBlazorHub();

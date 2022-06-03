@@ -45,7 +45,28 @@ namespace VpnDomain
 
         public async Task<IList<NhanVien>> GetStaffs()
         {
+            //var l = db.NhanVien.ToList();
             return await db.NhanVien.Where(x => x.NghiViec == false).OrderBy(x => x.HoTen).ToListAsync();
+        }
+
+        public async Task UpdateStaff(int staffId, string email, string phone)
+        {
+            var staff = db.NhanVien.Find(staffId);
+            if (staff != null)
+            {
+                if (staff.Email != email)
+                {
+                    staff.Email = email;
+                    db.Entry(staff).State = EntityState.Modified;
+                }
+                if(staff.DienThoai != phone)
+                {
+                    staff.DienThoai = phone;
+                    db.Entry(staff).State = EntityState.Modified;
+                }
+                if (db.Entry(staff).State == EntityState.Modified)
+                    await db.SaveChangesAsync();
+            }    
         }
     }
 }

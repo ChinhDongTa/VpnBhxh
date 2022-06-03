@@ -42,11 +42,14 @@ namespace Vpn.WebUI.Data
         /// Số tháng đăng ký sử dụng VPN
         /// </summary>
         [Required]
+        [Range(1, 6)]
         public int SoThang { get; set; }
         /// <summary>
         /// Thời gian bắt đầu có hiệu lực sử dụng VPN
         /// </summary>
         [Required]
+        [DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}")]
         public DateTime BatDau { get; set; }
     }
 }

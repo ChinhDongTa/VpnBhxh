@@ -1,31 +1,47 @@
 ﻿@page "/"
 @using System.ComponentModel.DataAnnotations
 @using Vpn.WebUI.Data
+@inject IVpnDtoService service
 
 <PageTitle>Index</PageTitle>
 
 <MudText Typo="Typo.h3" GutterBottom="true">Đăng ký sử dụng VPN BHXH</MudText>
-
+@if(vpnDtos==null)
+{
+    <p>loading...</p>
+}
+else
+{
 <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
 <DataAnnotationsValidator/>
 <MudGrid>
     <MudItem xs="12" sm="7">
         <MudCard>
             <MudCardContent>
-                <MudSelect Placeholder="Chon nhan vien" @bind-Value="staffIdSelected" @onchange="@ChangedItem">
+                <MudSelect Required="true" RequiredError="Chưa chọn nhân viên" Clearable="true"
+                                @bind-Value="@model" T="VpnDto" SelectedValuesChanged="(values) => OnSelectedValuesChanged(values)">
+                    <MudSelectItem Value="@model">@model.HoTen</MudSelectItem>
                     @foreach(var vpn in vpnDtos)
                         {
-                            <MudSelectItem Value="@vpn.StaffId">@vpn.HoTen</MudSelectItem>
+                            <MudSelectItem Value="@vpn">@vpn.HoTen</MudSelectItem>
                         }
                     </MudSelect>
-                <MudTextField Label="First name" HelperText="Max. 8 characters"
-                              @bind-Value="model.Username" For="@(() => model.Username)"/>
-                <MudTextField Label="Email" Class="mt-3"
+                <MudTextField Label="Email" HelperText="Đị chỉ email công vụ"
                               @bind-Value="model.Email" For="@(() => model.Email)"/>
-                <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
-                              @bind-Value="model.Password" For="@(() => model.Password)" InputType="InputType.Password"/>
-                <MudTextField Label="Staff Id Select" HelperText="Repeat the password" Class="mt-3"
-                              @bind-Value="staffIdSelected" InputType="InputType.Number"/>
+                <MudTextField Label="Chức vụ" Class="mt-3"
+                              @bind-Value="model.ChucVu" For="@(() => model.ChucVu)"/>
+                <MudTextField Label="Đơn vị" HelperText="Đơn vị công tác" Class="mt-3"
+                              @bind-Value="model.ChucVu" For="@(() => model.ChucVu)"/>
+                <MudTextField Label="Điện thoại" HelperText="Điện thoại" Class="mt-3"
+                              @bind-Value="model.DienThoai" />
+                <MudTextField Label="Mac address" HelperText="Địa chỉ MAC" Class="mt-3"
+                              @bind-Value="model.MacAddress" />
+                <MudTextField Label="Ứng dụng" HelperText="Tên các phần mềm cần sử dụng vpn" Class="mt-3"
+                              @bind-Value="model.UngDung" />
+                <MudTextField Label="Số tháng" HelperText="Số tháng sử dụng" Class="mt-3"
+                              @bind-Value="model.SoThang" InputType=InputType.Number />
+                <MudDatePicker Label="Bắt đầu" HelperText="Ngày bắt đầu sử dụng" Class="mt-3" 
+                              @bind-Value="model.BatDau" DateFormat="dd-MM-yyyy" />
             </MudCardContent>
             <MudCardActions>
                 <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
@@ -54,43 +70,30 @@
     </MudItem>
 </MudGrid>
 </EditForm>
+
+}
 @code {
-    RegisterAccountForm model = new RegisterAccountForm();
-    VpnDto vpn = new();
-    IEnumerable<VpnDto> vpnDtos;
-    int staffIdSelected;
+    VpnDto model=new(){HoTen="Chọn nhân viên"} ;
+    //VpnDto vpn = new();
+    IEnumerable<VpnDto>? vpnDtos;
+    //int staffIdSelected;
     bool success;
 
-    public class RegisterAccountForm
+    void  OnSelectedValuesChanged(object values)
     {
-        [Required]
-        [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
-        public string Username { get; set; }
 
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
-
-        [Required]
-        [StringLength(30, ErrorMessage = "Password must be at least 8 characters long.", MinimumLength = 8)]
-        public string Password { get; set; }
-
-        [Required]
-        [Compare(nameof(Password))]
-        public string Password2 { get; set; }
-
+        //model = vpnDtos.First(x => x.StaffId == staffIdSelected);
     }
-
-    void ChangedItem()
+    protected override async Task OnInitializedAsync()
     {
+        //model=new(){HoTen="Chọn nhân viên", Email="no@m.m"} ;
+        vpnDtos = await service.GetFromStaff();
         
     }
-
     private void OnValidSubmit(EditContext context)
     {
         
         success = true;
         StateHasChanged();
     }
-
 }
