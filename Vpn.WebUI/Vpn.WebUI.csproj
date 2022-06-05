@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\Reports\registryVpn.rdlc" />
+    <Content Remove="Reports\registryVpn.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="wwwroot\Reports\registryVpn.rdlc" />
+    <EmbeddedResource Include="Reports\registryVpn.rdlc" />
   </ItemGroup>
 
   <ItemGroup>

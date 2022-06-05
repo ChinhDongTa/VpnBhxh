@@ -31,31 +31,32 @@ namespace Vpn.WebUI.Controllers
                 DonVi = "cntt",
                 SoThang = 1
             };
-            string mimetype = "";
-            int extension = 1;
-            var path = $"{_webHostEnvironment.WebRootPath}\\Reports\\RegistryVpn.rdlc";
-            Dictionary<string, string> parameters = new()
+            
+            
+            //var path = $"{_webHostEnvironment.WebRootPath}\\Reports\\RegistryVpn.rdlc";
+            var parameters = new[]
             {
-                { "HoTen", vpn.HoTen },
-                { "ChucVu", vpn.ChucVu },
-                { "UngDung", vpn.UngDung },
-                { "Email", vpn.Email },
-                { "DonVi", vpn.DonVi },
-                { "MacAddress", vpn.MacAddress },
-                { "DienThoai", vpn.DienThoai },
-                { "BatDau", $"Từ {vpn.BatDau.ToShortDateString()} đến {vpn.BatDau.AddMonths(vpn.SoThang).ToShortDateString()}" }
+                new ReportParameter ( "HoTen", vpn.HoTen ),
+                new ReportParameter( "ChucVu", vpn.ChucVu ),
+                new ReportParameter( "UngDung", vpn.UngDung ),
+                new ReportParameter ("Email", vpn.Email ),
+                new ReportParameter ("DonVi", vpn.DonVi ),
+                new ReportParameter ("MacAddress", vpn.MacAddress ),
+                new ReportParameter ("DienThoai", vpn.DienThoai ),
+                new ReportParameter ("BatDau", $"Từ {vpn.BatDau.ToShortDateString()} đến {vpn.BatDau.AddMonths(vpn.SoThang).ToShortDateString()}" )
             };
 
-            ServerReport report = new ServerReport();
-
-
-
-            LocalReport localReport = new();
-            
+            using var report = new LocalReport();
+            var renderFormat = "PDF";
+            string extension = "pdf";
+            var mimeType = "application/pdf";
+            Reports.Report.Load(report, parameters);
+            var pdf = report.Render(renderFormat);
+            return File(pdf, mimeType, "DangKyVpn." + extension);
 
 
             //var result = localReport.ExecuteReportInCurrentAppDomain(RenderType.Pdf, extension, parameters, mimetype);
-            return File(result.MainStream, "application/pdf");
+            //return File(result.MainStream, "application/pdf");
             //return new string[] { "Registry Vpn", "Registry Vpn" };
         }
 

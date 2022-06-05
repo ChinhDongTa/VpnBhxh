@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VpnDomain", "VpnDomain\VpnD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vpn.WebUI", "Vpn.WebUI\Vpn.WebUI.csproj", "{F2FDA3D8-B153-4C28-81FE-CE5558CAAB7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdlcReportWindowsForms", "RdlcReportWindowsForms\RdlcReportWindowsForms.csproj", "{A6879E69-068C-42C0-B709-E6EB9A2F1E9A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{F2FDA3D8-B153-4C28-81FE-CE5558CAAB7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2FDA3D8-B153-4C28-81FE-CE5558CAAB7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2FDA3D8-B153-4C28-81FE-CE5558CAAB7D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A6879E69-068C-42C0-B709-E6EB9A2F1E9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6879E69-068C-42C0-B709-E6EB9A2F1E9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6879E69-068C-42C0-B709-E6EB9A2F1E9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6879E69-068C-42C0-B709-E6EB9A2F1E9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
