@@ -43,7 +43,7 @@ namespace VpnDomain
         Task Save(VpnBhxh item);
 
         /// <summary>
-        /// Cập nhật thông tin từ người đăng ký VPN vào table NhanVien
+        /// Cập nhật thông tin (chỉ email hoặc phone) từ người đăng ký VPN vào table NhanVien
         /// </summary>
         /// <param name="staffId"></param>
         /// <param name="email"></param>

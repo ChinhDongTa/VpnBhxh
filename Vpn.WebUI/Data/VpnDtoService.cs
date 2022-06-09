@@ -53,7 +53,7 @@ namespace Vpn.WebUI.Data
             var vpnBhxh = new VpnBhxh() { Apps = vpn.UngDung, BeginDate = vpn.BatDau, NumMonth = (byte)vpn.SoThang, StaffId = vpn.StaffId, };
             await vpnRepo.Save(vpnBhxh);
             //Update Email, Sô điên thoại vào table NhanVien
-            await vpnRepo.UpdateStaff(vpn.StaffId, vpn.Email, vpn.DienThoai);
+            //await vpnRepo.UpdateStaff(vpn.StaffId, vpn.Email, vpn.DienThoai);
 
             //Tải file cam kết sử dụng vpn
 

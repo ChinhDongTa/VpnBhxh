@@ -16,34 +16,22 @@ namespace Vpn.WebUI.Controllers
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
 
-        [HttpGet]
+        [HttpGet("{hoTen}/{chucVu}/{ungDung}/{email}/{donVi}/{macAddress}/{dienThoai}/{batDau}")]
         [Route("RegistryVpn")]
-        public IActionResult RegistryVpn()
+        public IActionResult RegistryVpn(string hoTen, string chucVu, string ungDung,string email, string donVi, string macAddress, string dienThoai, string batDau )
         //public IEnumerable<string> RegistryVpn()
         {
-            VpnDto vpn = new VpnDto()
-            {
-                HoTen = "Duong Trong Chinh",
-                Email = "a@a.c",
-                MacAddress = "mac",
-                BatDau = DateTime.Now,
-                ChucVu = "ptppt",
-                DonVi = "cntt",
-                SoThang = 1
-            };
-            
-            
             //var path = $"{_webHostEnvironment.WebRootPath}\\Reports\\RegistryVpn.rdlc";
             var parameters = new[]
             {
-                new ReportParameter ( "HoTen", vpn.HoTen ),
-                new ReportParameter( "ChucVu", vpn.ChucVu ),
-                new ReportParameter( "UngDung", vpn.UngDung ),
-                new ReportParameter ("Email", vpn.Email ),
-                new ReportParameter ("DonVi", vpn.DonVi ),
-                new ReportParameter ("MacAddress", vpn.MacAddress ),
-                new ReportParameter ("DienThoai", vpn.DienThoai ),
-                new ReportParameter ("BatDau", $"Từ {vpn.BatDau.ToShortDateString()} đến {vpn.BatDau.AddMonths(vpn.SoThang).ToShortDateString()}" )
+                new ReportParameter ( "HoTen", hoTen ),
+                new ReportParameter( "ChucVu", chucVu ),
+                new ReportParameter( "UngDung", ungDung ),
+                new ReportParameter ("Email", email ),
+                new ReportParameter ("DonVi", donVi ),
+                new ReportParameter ("MacAddress", macAddress ),
+                new ReportParameter ("DienThoai",dienThoai ),
+                new ReportParameter ("BatDau", batDau )
             };
 
             using var report = new LocalReport();
@@ -52,6 +40,7 @@ namespace Vpn.WebUI.Controllers
             var mimeType = "application/pdf";
             Reports.Report.Load(report, parameters);
             var pdf = report.Render(renderFormat);
+
             return File(pdf, mimeType, "DangKyVpn." + extension);
 
 

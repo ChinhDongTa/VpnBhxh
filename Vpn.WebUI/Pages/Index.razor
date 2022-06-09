@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using System.ComponentModel.DataAnnotations
 @using Vpn.WebUI.Data
+@inject IDownLoadService download
 @inject IVpnDtoService service
 
 <PageTitle>Index</PageTitle>
@@ -88,12 +89,34 @@ else
     {
         //model=new(){HoTen="Chọn nhân viên", Email="no@m.m"} ;
         vpnDtos = await service.GetFromStaff();
-        
+
     }
-    private void OnValidSubmit(EditContext context)
+    private async void OnValidSubmit(EditContext context)
     {
+        //test download file 
+        download.Export("RegistryVpn", VptDtoTo((VpnDto)context.Model));
+
         
+        //await service.RegisterAndDownLoadFile((VpnDto)context.Model);
         success = true;
         StateHasChanged();
+    }
+
+    /// <summary>
+    /// Tham số cho RdlcReport chỉ cần <string, string> 
+    /// </summary>
+    /// <returns></returns>
+    IEnumerable<KeyValuePair<string, string>> VptDtoTo(VpnDto vpn)
+    {
+        var pairs = new List<KeyValuePair<string, string>>();
+        pairs.Add (new KeyValuePair<string, string>("HoTen", vpn.HoTen));
+        pairs.Add(new KeyValuePair<string, string>("ChucVu", vpn.ChucVu));
+        pairs.Add(new KeyValuePair<string, string>("UngDung", vpn.UngDung));
+        pairs.Add(new KeyValuePair<string, string>("Email", vpn.Email));
+        pairs.Add(new KeyValuePair<string, string>("DonVi", vpn.DonVi));
+        pairs.Add(new KeyValuePair<string, string>("MacAddress", vpn.MacAddress));
+        pairs.Add(new KeyValuePair<string, string>("DienThoai", vpn.DienThoai));
+        pairs.Add(new KeyValuePair<string, string>("BatDau", $"Từ {vpn.BatDau.ToShortDateString()} đến {vpn.BatDau.AddMonths(vpn.SoThang).ToShortDateString()}"));
+        return pairs;
     }
 }

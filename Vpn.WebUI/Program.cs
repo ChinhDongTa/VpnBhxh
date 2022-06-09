@@ -9,9 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
 builder.Services.AddSingleton<IVpnBhxhRepo, VpnBhxhRepo > ();
+builder.Services.AddScoped<IDownLoadService, DownLoadService>();
 builder.Services.AddSingleton<IVpnDtoService, VpnDtoService>();
-builder.Services.AddSingleton<HttpClient>();
+
+//builder.Services.AddSingleton<HttpClient>();
 builder.Services.AddMudServices();
 
 var app = builder.Build();
