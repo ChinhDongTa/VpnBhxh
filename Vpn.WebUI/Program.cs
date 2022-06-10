@@ -14,7 +14,7 @@ builder.Services.AddSingleton<IVpnBhxhRepo, VpnBhxhRepo > ();
 builder.Services.AddScoped<IDownLoadService, DownLoadService>();
 builder.Services.AddSingleton<IVpnDtoService, VpnDtoService>();
 
-//builder.Services.AddSingleton<HttpClient>();
+builder.Services.AddSingleton<HttpClient>();
 builder.Services.AddMudServices();
 
 var app = builder.Build();

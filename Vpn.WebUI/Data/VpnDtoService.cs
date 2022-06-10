@@ -17,7 +17,7 @@ namespace Vpn.WebUI.Data
 
     public class VpnDtoService : IVpnDtoService
     {
-        IVpnBhxhRepo vpnRepo = new VpnBhxhRepo();
+        readonly IVpnBhxhRepo vpnRepo = new VpnBhxhRepo();
 
         public IEnumerable<VpnDto> GetFromStaff(IEnumerable<NhanVien> staffs)
         {

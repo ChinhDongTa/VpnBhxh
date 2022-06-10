@@ -3,6 +3,7 @@
 @using Vpn.WebUI.Data
 @inject IDownLoadService download
 @inject IVpnDtoService service
+@inject HttpClient Http  
 
 <PageTitle>Index</PageTitle>
 
@@ -44,7 +45,7 @@ else
                 @*<MudTextField Label="Bat dau tu" HelperText="Số tháng sử dụng" Class="mt-3"
                               @bind-Value="model.BatDau" Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy"  InputType="InputType.Date" />*@
                 <MudDatePicker Label="Bắt đầu" HelperText="Ngày bắt đầu sử dụng" Class="mt-3" 
-                              @bind-Date="date1" Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy"/>
+                              @bind-Date="date1" Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" For="@(()=>date1)"/>
             </MudCardContent>
             <MudCardActions>
                 <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
@@ -56,8 +57,12 @@ else
             <MudText Typo="Typo.subtitle2">Validation Summary</MudText>
             @if (success)
             {
-                <MudText Color="Color.Success">Success model.BatDau @model.BatDau</MudText>
+                <MudText Color="Color.Success">Success</MudText>
                 <MudText Color="Color.Success">date1: @date1</MudText>
+                <MudText Color="Color.Success">model.BatDau @model.BatDau</MudText>
+                <MudText Color="Color.Success">Model.Chucvu: @model.ChucVu</MudText>
+                <MudText Color="Color.Success">Model.DonVi: @model.DonVi</MudText>
+                <MudText Color="Color.Success">Model.MacAddress: @model.MacAddress</MudText>
             }
             else
             {
@@ -96,14 +101,17 @@ else
     }
     private async void OnValidSubmit(EditContext context)
     {
-        
+
         //MudDatePicker ko thẻ bind-Date vào odel.BatDau nên fai dùng biến trung gian date1. Kỳ lạ nè hay chưa hiểu hết
-        model=(VpnDto)context.Model;
+        //model=(VpnDto)context.Model;
         model.BatDau = date1.Value;
         //download.Export("RegistryVpn", VptDtoTo((VpnDto)context.Model));
 
-        
-        //await service.RegisterAndDownLoadFile((VpnDto)context.Model);
+
+        //đã gọi dc API
+        var mes= await Http.PostAsJsonAsync(@"http://localhost:61949/api/RdlcReport/RegistryVpn", model);
+        //await service.RegisterAndDownLoadFile(model);
+        model.MacAddress +="       " + mes.StatusCode.ToString();
         success = true;
         StateHasChanged();
     }
