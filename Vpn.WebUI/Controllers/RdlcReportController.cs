@@ -9,19 +9,17 @@ namespace Vpn.WebUI.Controllers
     [ApiController]
     public class RdlcReportController : ControllerBase
     {
-        private readonly IWebHostEnvironment _webHostEnvironment;
-        public RdlcReportController(IWebHostEnvironment webHostEnvironment)
+        public RdlcReportController()
         {
-            this._webHostEnvironment=webHostEnvironment;
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
 
         [HttpGet("{hoTen}/{chucVu}/{ungDung}/{email}/{donVi}/{macAddress}/{dienThoai}/{batDau}")]
         [Route("RegistryVpn")]
         public IActionResult RegistryVpn(string hoTen, string chucVu, string ungDung,string email, string donVi, string macAddress, string dienThoai, string batDau )
-        //public IEnumerable<string> RegistryVpn()
+        //public IActionResult RegistryVpn()
         {
-            //var path = $"{_webHostEnvironment.WebRootPath}\\Reports\\RegistryVpn.rdlc";
+            
             var parameters = new[]
             {
                 new ReportParameter ( "HoTen", hoTen ),
@@ -33,6 +31,19 @@ namespace Vpn.WebUI.Controllers
                 new ReportParameter ("DienThoai",dienThoai ),
                 new ReportParameter ("BatDau", batDau )
             };
+
+
+            // var parameters = new[]
+            //{
+            //     new ReportParameter ( "HoTen", "dtc" ),
+            //     new ReportParameter( "ChucVu", "chu vu" ),
+            //     new ReportParameter( "UngDung", "ung dung" ),
+            //     new ReportParameter ("Email", "email" ),
+            //     new ReportParameter ("DonVi", "p.cntt" ),
+            //     new ReportParameter ("MacAddress", "mac address" ),
+            //     new ReportParameter ("DienThoai","0905xx" ),
+            //     new ReportParameter ("BatDau", "tư a den b" )
+            // };
 
             using var report = new LocalReport();
             var renderFormat = "PDF";

@@ -32,7 +32,7 @@ else
                 <MudTextField Label="Chức vụ" Class="mt-3"
                               @bind-Value="model.ChucVu" For="@(() => model.ChucVu)"/>
                 <MudTextField Label="Đơn vị" HelperText="Đơn vị công tác" Class="mt-3"
-                              @bind-Value="model.ChucVu" For="@(() => model.ChucVu)"/>
+                              @bind-Value="model.DonVi" For="@(() => model.DonVi)"/>
                 <MudTextField Label="Điện thoại" HelperText="Điện thoại" Class="mt-3"
                               @bind-Value="model.DienThoai" />
                 <MudTextField Label="Mac address" HelperText="Địa chỉ MAC" Class="mt-3"
@@ -41,8 +41,10 @@ else
                               @bind-Value="model.UngDung" />
                 <MudTextField Label="Số tháng" HelperText="Số tháng sử dụng" Class="mt-3"
                               @bind-Value="model.SoThang" InputType=InputType.Number />
+                @*<MudTextField Label="Bat dau tu" HelperText="Số tháng sử dụng" Class="mt-3"
+                              @bind-Value="model.BatDau" Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy"  InputType="InputType.Date" />*@
                 <MudDatePicker Label="Bắt đầu" HelperText="Ngày bắt đầu sử dụng" Class="mt-3" 
-                              @bind-Value="model.BatDau" DateFormat="dd-MM-yyyy" />
+                              @bind-Date="date1" Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy"/>
             </MudCardContent>
             <MudCardActions>
                 <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
@@ -54,7 +56,8 @@ else
             <MudText Typo="Typo.subtitle2">Validation Summary</MudText>
             @if (success)
             {
-                <MudText Color="Color.Success">Success</MudText>
+                <MudText Color="Color.Success">Success model.BatDau @model.BatDau</MudText>
+                <MudText Color="Color.Success">date1: @date1</MudText>
             }
             else
             {
@@ -75,11 +78,11 @@ else
 }
 @code {
     VpnDto model=new(){HoTen="Chọn nhân viên"} ;
-    //VpnDto vpn = new();
+    //VpnDto vpn = new(); DateFormat="dd-MM-yyyy"
     IEnumerable<VpnDto>? vpnDtos;
     //int staffIdSelected;
     bool success;
-
+    DateTime? date1 = DateTime.Today.AddDays(2);
     void  OnSelectedValuesChanged(object values)
     {
 
@@ -93,8 +96,11 @@ else
     }
     private async void OnValidSubmit(EditContext context)
     {
-        //test download file 
-        download.Export("RegistryVpn", VptDtoTo((VpnDto)context.Model));
+        
+        //MudDatePicker ko thẻ bind-Date vào odel.BatDau nên fai dùng biến trung gian date1. Kỳ lạ nè hay chưa hiểu hết
+        model=(VpnDto)context.Model;
+        model.BatDau = date1.Value;
+        //download.Export("RegistryVpn", VptDtoTo((VpnDto)context.Model));
 
         
         //await service.RegisterAndDownLoadFile((VpnDto)context.Model);

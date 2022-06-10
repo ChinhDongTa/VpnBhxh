@@ -26,7 +26,7 @@ namespace Vpn.WebUI.Data
         {
             //https://localhost:7170/api/exporthgd/DsBhytXa/24042/false
             string url = $"{apiBasse}/{actionName}/";
-            if (pairs != null && pairs.Count() > 0)
+            if (pairs != null && pairs.Any())
             {
                 // url = $"{apiBasse}/{actionName}/";
                 foreach (var item in pairs)

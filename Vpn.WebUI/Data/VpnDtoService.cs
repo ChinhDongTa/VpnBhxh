@@ -34,11 +34,13 @@ namespace Vpn.WebUI.Data
             return new VpnDto()
             {
                 StaffId = staff.NhanVienId,
+                
                 HoTen = staff.HoTen.ToUpper(),
                 Email = staff.Email,
                 DienThoai = staff.DienThoai,
                 SoThang = 1,
                 UngDung = "tst, tcs"
+                //BatDau= DateTime.Now,
             };
         }
 
@@ -50,7 +52,7 @@ namespace Vpn.WebUI.Data
         public async Task RegisterAndDownLoadFile(VpnDto vpn)
         {
             //Ghi vào table VpnBhxh
-            var vpnBhxh = new VpnBhxh() { Apps = vpn.UngDung, BeginDate = vpn.BatDau, NumMonth = (byte)vpn.SoThang, StaffId = vpn.StaffId, };
+            var vpnBhxh = new VpnBhxh() { Apps = vpn.UngDung, BeginDate =  vpn.BatDau, NumMonth = (byte)vpn.SoThang, StaffId = vpn.StaffId, };
             await vpnRepo.Save(vpnBhxh);
             //Update Email, Sô điên thoại vào table NhanVien
             //await vpnRepo.UpdateStaff(vpn.StaffId, vpn.Email, vpn.DienThoai);

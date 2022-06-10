@@ -49,7 +49,7 @@ namespace Vpn.WebUI.Data
         /// </summary>
         [Required]
         [DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString ="{0:dd-MM-yyyy}")]
         public DateTime BatDau { get; set; }
     }
 }
