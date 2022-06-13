@@ -47,9 +47,8 @@ namespace Vpn.WebUI.Data
         /// <summary>
         /// Thời gian bắt đầu có hiệu lực sử dụng VPN
         /// </summary>
-        [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString ="{0:dd-MM-yyyy}")]
-        public DateTime BatDau { get; set; }
+        public DateTime? BatDau { get; set; }
     }
 }

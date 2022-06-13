@@ -34,7 +34,7 @@ namespace Vpn.WebUI.Data
                     url += $"{item.Value}/";
                 }
             }
-
+            //url = "http://localhost:61949/api/RdlcReport/RegistryVpn/D%C6%AF%C6%A0NG%20TR%E1%BB%8CNG%20CH%C3%8DNH//tst,%20tcs/chinhdt@gialai.vss.gov.vn//fsdaf/0905146799/T%E1%BB%AB%2015-06-2022%20%C4%91%E1%BA%BFn%2015-07-2022/";
             navigationManager.NavigateTo(url, true);
         }
     }

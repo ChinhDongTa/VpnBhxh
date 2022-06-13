@@ -133,6 +133,7 @@ namespace VpnDomain.Models
         public string FirstOffice { get; set; }
         public DateTime? NgayCachMang { get; set; }
 
+        public virtual ChucVu MaChucVuNavigation { get; set; }
         public virtual PhongBan MaPhongBanNavigation { get; set; }
         public virtual ICollection<VpnBhxh> VpnBhxh { get; set; }
     }

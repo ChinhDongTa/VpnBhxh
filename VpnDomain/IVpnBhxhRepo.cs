@@ -62,6 +62,6 @@ namespace VpnDomain
         /// Get all staff
         /// </summary>
         /// <returns></returns>
-        Task<IList<NhanVien>> GetStaffs();
+        IQueryable<NhanVien> GetStaffs();
     }
 }

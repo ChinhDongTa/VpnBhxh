@@ -18,6 +18,7 @@ namespace VpnDomain.Models
         {
         }
 
+        public virtual DbSet<ChucVu> ChucVu { get; set; }
         public virtual DbSet<NhanVien> NhanVien { get; set; }
         public virtual DbSet<PhongBan> PhongBan { get; set; }
         public virtual DbSet<VpnBhxh> VpnBhxh { get; set; }
@@ -33,6 +34,19 @@ namespace VpnDomain.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ChucVu>(entity =>
+            {
+                entity.HasKey(e => e.MaChucVu);
+
+                entity.Property(e => e.GhiChu).HasMaxLength(200);
+
+                entity.Property(e => e.Ten)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.VietTat).HasMaxLength(10);
+            });
+
             modelBuilder.Entity<NhanVien>(entity =>
             {
                 entity.HasComment("Lí lịch nhân viên");
@@ -234,6 +248,12 @@ namespace VpnDomain.Models
                 entity.Property(e => e.Weight)
                     .IsRequired()
                     .HasMaxLength(7);
+
+                entity.HasOne(d => d.MaChucVuNavigation)
+                    .WithMany(p => p.NhanVien)
+                    .HasForeignKey(d => d.MaChucVu)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_NhanVien_ChucVu");
 
                 entity.HasOne(d => d.MaPhongBanNavigation)
                     .WithMany(p => p.NhanVien)

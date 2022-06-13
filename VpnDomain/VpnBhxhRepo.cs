@@ -43,10 +43,10 @@ namespace VpnDomain
         }
 
 
-        public async Task<IList<NhanVien>> GetStaffs()
+        public IQueryable<NhanVien> GetStaffs()
         {
             //var l = db.NhanVien.ToList();
-            return await db.NhanVien.Where(x => x.NghiViec == false).OrderBy(x => x.HoTen).ToListAsync();
+            return db.NhanVien.Where(x => x.NghiViec == false).OrderBy(x => x.HoTen).Include(x=>x.MaPhongBanNavigation).Include(x=>x.MaChucVuNavigation);
         }
 
         public async Task UpdateStaff(int staffId, string email, string phone)
@@ -68,5 +68,6 @@ namespace VpnDomain
                     await db.SaveChangesAsync();
             }    
         }
+        
     }
 }

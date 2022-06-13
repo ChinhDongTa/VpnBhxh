@@ -105,13 +105,15 @@ else
         //MudDatePicker ko thẻ bind-Date vào odel.BatDau nên fai dùng biến trung gian date1. Kỳ lạ nè hay chưa hiểu hết
         //model=(VpnDto)context.Model;
         model.BatDau = date1.Value;
-        //download.Export("RegistryVpn", VptDtoTo((VpnDto)context.Model));
+        download.Export("RegistryVpn", VptDtoTo((VpnDto)context.Model));
 
+        //Http.GetByteArrayAsync()
 
         //đã gọi dc API
-        var mes= await Http.PostAsJsonAsync(@"http://localhost:61949/api/RdlcReport/RegistryVpn", model);
+        
         //await service.RegisterAndDownLoadFile(model);
-        model.MacAddress +="       " + mes.StatusCode.ToString();
+
+        //model.MacAddress +="       " + mes.StatusCode.ToString();
         success = true;
         StateHasChanged();
     }
@@ -130,7 +132,7 @@ else
         pairs.Add(new KeyValuePair<string, string>("DonVi", vpn.DonVi));
         pairs.Add(new KeyValuePair<string, string>("MacAddress", vpn.MacAddress));
         pairs.Add(new KeyValuePair<string, string>("DienThoai", vpn.DienThoai));
-        pairs.Add(new KeyValuePair<string, string>("BatDau", $"Từ {vpn.BatDau.ToShortDateString()} đến {vpn.BatDau.AddMonths(vpn.SoThang).ToShortDateString()}"));
+        pairs.Add(new KeyValuePair<string, string>("BatDau", $"Từ {vpn.BatDau.Value.ToShortDateString()} đến {vpn.BatDau.Value.AddMonths(vpn.SoThang).ToShortDateString()}"));
         return pairs;
     }
 }
