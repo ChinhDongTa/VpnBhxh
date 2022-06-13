@@ -48,7 +48,7 @@ else
                               @bind-Date="date1" Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" For="@(()=>date1)"/>
             </MudCardContent>
             <MudCardActions>
-                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Ghi danh & tải file</MudButton>
             </MudCardActions>
         </MudCard>
     </MudItem>
@@ -58,6 +58,7 @@ else
             @if (success)
             {
                 <MudText Color="Color.Success">Success</MudText>
+                // output  test 
                 <MudText Color="Color.Success">date1: @date1</MudText>
                 <MudText Color="Color.Success">model.BatDau @model.BatDau</MudText>
                 <MudText Color="Color.Success">Model.Chucvu: @model.ChucVu</MudText>
