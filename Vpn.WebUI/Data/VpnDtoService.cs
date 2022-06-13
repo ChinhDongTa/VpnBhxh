@@ -1,4 +1,5 @@
-﻿using VpnDomain;
+﻿using System.Net.NetworkInformation;
+using VpnDomain;
 using VpnDomain.Models;
 
 namespace Vpn.WebUI.Data
@@ -41,7 +42,8 @@ namespace Vpn.WebUI.Data
                 SoThang = 1,
                 UngDung = "tst, tcs",
                 ChucVu = staff.MaChucVuNavigation.VietTat,
-                DonVi = staff.MaPhongBanNavigation.TenVietTat
+                DonVi = staff.MaPhongBanNavigation.TenVietTat,
+                MacAddress=GetMacAddress()
                 //BatDau= DateTime.Now,
             };
         }
@@ -57,13 +59,24 @@ namespace Vpn.WebUI.Data
             var vpnBhxh = new VpnBhxh() { Apps = vpn.UngDung, BeginDate =  vpn.BatDau.Value, NumMonth = (byte)vpn.SoThang, StaffId = vpn.StaffId, };
             await vpnRepo.Save(vpnBhxh);
             //Update Email, Sô điên thoại vào table NhanVien
-            //await vpnRepo.UpdateStaff(vpn.StaffId, vpn.Email, vpn.DienThoai);
-
-            //Tải file cam kết sử dụng vpn
-
-
-
-            //return Task.CompletedTask;
+            await vpnRepo.UpdateStaff(vpn.StaffId, vpn.Email, vpn.DienThoai);
         }
+
+        private static string GetMacAddress()
+        {
+        //    NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+        //    for (int j = 0; j <= 1; j++)
+        //    {
+        //        nics[j].
+        //         return nics[j].GetPhysicalAddress().ToString();
+        //        //byte[] bytes = address.GetAddressBytes();
+               
+        //    }
+            return NetworkInterface.GetAllNetworkInterfaces()
+                .Where(nic => nic.OperationalStatus == OperationalStatus.Up && nic.NetworkInterfaceType != NetworkInterfaceType.Loopback)
+                .Select(nic => nic.GetPhysicalAddress().ToString())
+                .FirstOrDefault();
+        }
+
     }
 }

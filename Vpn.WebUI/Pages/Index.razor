@@ -106,15 +106,12 @@ else
         //MudDatePicker ko thẻ bind-Date vào odel.BatDau nên fai dùng biến trung gian date1. Kỳ lạ nè hay chưa hiểu hết
         //model=(VpnDto)context.Model;
         model.BatDau = date1.Value;
-        download.Export("RegistryVpn", VptDtoTo((VpnDto)context.Model));
-
-        //Http.GetByteArrayAsync()
-
+       
         //đã gọi dc API
         
-        //await service.RegisterAndDownLoadFile(model);
-
-        //model.MacAddress +="       " + mes.StatusCode.ToString();
+        await service.RegisterAndDownLoadFile(model);
+         download.Export("RegistryVpn", VptDtoTo((VpnDto)context.Model));
+        
         success = true;
         StateHasChanged();
     }
