@@ -43,7 +43,7 @@ namespace Vpn.WebUI.Data
                 UngDung = "tst, tcs",
                 ChucVu = staff.MaChucVuNavigation.VietTat,
                 DonVi = staff.MaPhongBanNavigation.TenVietTat,
-                MacAddress=GetMacAddress()
+                MacAddress=GetMacAddress(staff.NhanVienId)
                 //BatDau= DateTime.Now,
             };
         }
@@ -62,21 +62,30 @@ namespace Vpn.WebUI.Data
             await vpnRepo.UpdateStaff(vpn.StaffId, vpn.Email, vpn.DienThoai);
         }
 
-        private static string GetMacAddress()
+        private static string GetMacAddress(int staffId)
         {
-        //    NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
-        //    for (int j = 0; j <= 1; j++)
-        //    {
-        //        nics[j].
-        //         return nics[j].GetPhysicalAddress().ToString();
-        //        //byte[] bytes = address.GetAddressBytes();
-               
-        //    }
-            return NetworkInterface.GetAllNetworkInterfaces()
-                .Where(nic => nic.OperationalStatus == OperationalStatus.Up && nic.NetworkInterfaceType != NetworkInterfaceType.Loopback)
-                .Select(nic => nic.GetPhysicalAddress().ToString())
-                .FirstOrDefault();
+            if (staffId > 0)
+            {
+                var mac = NetworkInterface.GetAllNetworkInterfaces()
+                    .Where(nic => nic.OperationalStatus == OperationalStatus.Up && nic.NetworkInterfaceType != NetworkInterfaceType.Loopback)
+                    .Select(nic => nic.GetPhysicalAddress().ToString())
+                    .FirstOrDefault();
+                return InsertString(mac);
+            }
+            return string.Empty;
         }
 
+        private static string InsertString(string macAddress)
+        {
+            int next = 2;
+            int count=macAddress.Length/2;//số lẻ là sai MacAddress 
+            for (int i = 1; i < count; i++)
+            {
+                
+                macAddress = macAddress.Insert(next, "-");
+                next += 3;
+            }
+            return macAddress;
+        }
     }
 }

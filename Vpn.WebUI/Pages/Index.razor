@@ -3,11 +3,10 @@
 @using Vpn.WebUI.Data
 @inject IDownLoadService download
 @inject IVpnDtoService service
-@inject HttpClient Http  
 
 <PageTitle>Index</PageTitle>
 
-<MudText Typo="Typo.h3" GutterBottom="true">Đăng ký sử dụng VPN BHXH</MudText>
+<MudText Typo="Typo.h3" >Đăng ký sử dụng VPN BHXH</MudText>
 @if(vpnDtos==null)
 {
     <p>loading...</p>
