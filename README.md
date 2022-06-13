@@ -9,7 +9,8 @@ Prerequisite:
 Dùng Pakage Manager Console tạo Database sửa connectionString cho phù hợp (VpnDomain.Models.VpnBhxhContext.cs): 
 1. add-migration [migrationName]
 2. update-database
-=>Chỉ lấy NhanVien(Id,HoTen,MaChucVu,MaPhongBan, Email, DienThoai), các trường còn lại có thể bỏ hoặc thêm vào khi cần sau này
+
+=> Chỉ lấy NhanVien(Id, HoTen, MaChucVu, MaPhongBan, Email, DienThoai), các trường còn lại có thể bỏ hoặc thêm vào khi cần sau này
 Mọi người có thể sử dụng và mở rộng cho mình.
 
 
