@@ -10,7 +10,7 @@ Dùng Pakage Manager Console tạo Database sửa connectionString cho phù hợ
 1. add-migration [migrationName]
 2. update-database
 
-Mọi người cso thẻ sử dụng và mở rộng cho mình.
+Mọi người có thể sử dụng và mở rộng cho mình.
 
 
 Enjoy !!!
