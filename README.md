@@ -1,7 +1,7 @@
 # Quản lý người dùng vpn
 Prerequisite:
 1. VS Community 2002
-2. ReportViewerCore.NETCore để tạo rdlc report
+2. Microsoft RDLC Report Designer
 3. Entity Framework core 6.0
 4. Asp.net core, Blazor, C# (base)
 5. SQL server 2008 hoặc sql localDB (chỉ dùng cho cá nhân để test)
