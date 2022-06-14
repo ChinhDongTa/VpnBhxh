@@ -5,9 +5,11 @@ namespace Vpn.WebUI.Data
     public interface IDownLoadService
     {
         public void Export(string actionName, IEnumerable<KeyValuePair<string, string>> pairs);
+        
+        public void Export(string actionName, VpnDto vpnDto);
     }
 
-    public class DownLoadService:IDownLoadService
+    public class DownLoadService : IDownLoadService
     {
         private readonly NavigationManager navigationManager;
         private const string apiBasse = "/api/RdlcReport";
@@ -34,8 +36,30 @@ namespace Vpn.WebUI.Data
                     url += $"{item.Value}/";
                 }
             }
-            //url = "http://localhost:61949/api/RdlcReport/RegistryVpn/D%C6%AF%C6%A0NG%20TR%E1%BB%8CNG%20CH%C3%8DNH//tst,%20tcs/chinhdt@gialai.vss.gov.vn//fsdaf/0905146799/T%E1%BB%AB%2015-06-2022%20%C4%91%E1%BA%BFn%2015-07-2022/";
             navigationManager.NavigateTo(url, true);
+        }
+
+        public void Export(string actionName, VpnDto vpnDto)
+        {
+            Export(actionName, VpnDtoTo(vpnDto));
+        }
+
+        /// <summary>
+        /// Tham số cho RdlcReport chỉ cần <string, string> 
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<KeyValuePair<string, string>> VpnDtoTo(VpnDto vpn)
+        {
+            var pairs = new List<KeyValuePair<string, string>>();
+            pairs.Add(new KeyValuePair<string, string>("HoTen", vpn.HoTen));
+            pairs.Add(new KeyValuePair<string, string>("ChucVu", vpn.ChucVu));
+            pairs.Add(new KeyValuePair<string, string>("UngDung", vpn.UngDung));
+            pairs.Add(new KeyValuePair<string, string>("Email", vpn.Email));
+            pairs.Add(new KeyValuePair<string, string>("DonVi", vpn.DonVi));
+            pairs.Add(new KeyValuePair<string, string>("MacAddress", vpn.MacAddress));
+            pairs.Add(new KeyValuePair<string, string>("DienThoai", vpn.DienThoai));
+            pairs.Add(new KeyValuePair<string, string>("BatDau", Common.FormatDate2BatDau(vpn.BatDau.Value, vpn.SoThang)));
+            return pairs;
         }
     }
 }

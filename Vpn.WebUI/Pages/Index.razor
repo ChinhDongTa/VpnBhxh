@@ -105,31 +105,15 @@ else
         //MudDatePicker ko thẻ bind-Date vào odel.BatDau nên fai dùng biến trung gian date1. Kỳ lạ nè hay chưa hiểu hết
         //model=(VpnDto)context.Model;
         model.BatDau = date1.Value;
-       
+
         //đã gọi dc API
-        
+
         await service.RegisterAndDownLoadFile(model);
-         download.Export("RegistryVpn", VptDtoTo((VpnDto)context.Model));
-        
+        download.Export("RegistryVpn", model);
+
         success = true;
         StateHasChanged();
     }
 
-    /// <summary>
-    /// Tham số cho RdlcReport chỉ cần <string, string> 
-    /// </summary>
-    /// <returns></returns>
-    IEnumerable<KeyValuePair<string, string>> VptDtoTo(VpnDto vpn)
-    {
-        var pairs = new List<KeyValuePair<string, string>>();
-        pairs.Add (new KeyValuePair<string, string>("HoTen", vpn.HoTen));
-        pairs.Add(new KeyValuePair<string, string>("ChucVu", vpn.ChucVu));
-        pairs.Add(new KeyValuePair<string, string>("UngDung", vpn.UngDung));
-        pairs.Add(new KeyValuePair<string, string>("Email", vpn.Email));
-        pairs.Add(new KeyValuePair<string, string>("DonVi", vpn.DonVi));
-        pairs.Add(new KeyValuePair<string, string>("MacAddress", vpn.MacAddress));
-        pairs.Add(new KeyValuePair<string, string>("DienThoai", vpn.DienThoai));
-        pairs.Add(new KeyValuePair<string, string>("BatDau", $"Từ {vpn.BatDau.Value.ToShortDateString()} đến {vpn.BatDau.Value.AddMonths(vpn.SoThang).ToShortDateString()}"));
-        return pairs;
-    }
+   
 }

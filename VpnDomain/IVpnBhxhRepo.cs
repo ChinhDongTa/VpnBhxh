@@ -28,6 +28,7 @@ namespace VpnDomain
         /// <returns></returns>
         Task<IEnumerable<VpnBhxh>> GetInUse();
 
+
         /// <summary>
         /// Find by id
         /// </summary>

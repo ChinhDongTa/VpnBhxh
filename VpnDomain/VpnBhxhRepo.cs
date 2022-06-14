@@ -31,9 +31,11 @@ namespace VpnDomain
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<VpnBhxh>> GetInUse()
+        public async Task<IEnumerable<VpnBhxh>> GetInUse()
         {
-            throw new NotImplementedException();
+            return await db.VpnBhxh.Where(x => x.BeginDate.AddMonths(x.NumMonth) >= DateTime.Now)
+                .Include(vpn =>vpn .Staff).ThenInclude(staff => staff.MaPhongBanNavigation)
+                .Include(vpn => vpn.Staff).ThenInclude(staff => staff.MaChucVuNavigation).ToListAsync();
         }
 
         public async Task Save(VpnBhxh item)

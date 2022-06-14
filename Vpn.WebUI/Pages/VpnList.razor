@@ -1,9 +1,42 @@
 ﻿@page "/VpnList"
+@using Vpn.WebUI.Data
 
+@inject IVpnDtoService service
 
-
+<MudDataGrid MultiSelection="false" T="VpnDto" Items="@Elements" Sortable="true" Filterable="true"  Hover="true" Bordered="true">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Danh sách đang sử dụng VPN</MudText>
+        <MudSpacer />
+       @* <MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+            AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>*@
+    </ToolBarContent>
+    <Columns>
+        @*<SelectColumn T="VpnDto" />*@
+        <Column T="VpnDto" Field="HoTen" Title="Họ tên" Sortable="true"  />
+        <Column T="VpnDto" Field="Email" Title="Email" Sortable="true" />
+        <Column T="VpnDto" Field="ChucVu" Title="Chức vụ" Sortable="true" />
+        <Column T="VpnDto" Field="DonVi" Title="Đơn vị" Sortable="true"/>
+        <Column T="VpnDto" Field="DienThoai" Title="Điện thoại" Sortable="false" Filterable="false"/>
+        <Column T="VpnDto" Field="UngDung" Title="Ứng dụng sử dụng VPN" Sortable="false" Filterable="false"/>
+        <Column T="VpnDto" Field="MacAddress" Title="Địa chỉ Mac" />
+        <Column T="VpnDto" Field="SoThang" Title="Số tháng" />
+        <Column T="VpnDto" Field="BatDau" Title="Bắt đầu sử dụng VPN" Filterable="false"/>
+    </Columns>
+    <PagerContent>
+        <MudDataGridPager T="VpnDto" />
+    </PagerContent>
+</MudDataGrid>
 
 
 @code {
+    //private string _searchString;
+    private IEnumerable<VpnDto> Elements = new List<VpnDto>();   
+
+    protected override async Task OnInitializedAsync()
+    {
+        //model=new(){HoTen="Chọn nhân viên", Email="no@m.m"} ;
+        Elements = await service.GetFromVpnBHXHInUse();
+
+    }
 
 }

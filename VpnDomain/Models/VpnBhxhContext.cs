@@ -304,7 +304,7 @@ namespace VpnDomain.Models
 
                 entity.Property(e => e.BeginDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Note).HasMaxLength(500);
+                entity.Property(e => e.MacAdddress).HasMaxLength(17);
 
                 entity.HasOne(d => d.Staff)
                     .WithMany(p => p.VpnBhxh)
