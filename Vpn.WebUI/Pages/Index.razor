@@ -19,7 +19,7 @@ else
     <MudItem xs="12" sm="7">
         <MudCard>
             <MudCardContent>
-                <MudSelect Required="true" RequiredError="Chưa chọn nhân viên" Clearable="true"
+                <MudSelect Required="true" RequiredError="Chưa chọn nhân viên" Clearable="true" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter"
                                 @bind-Value="@model" T="VpnDto" SelectedValuesChanged="(values) => OnSelectedValuesChanged(values)">
                     <MudSelectItem Value="@model">@model.HoTen</MudSelectItem>
                     @foreach(var vpn in vpnDtos)
@@ -90,6 +90,9 @@ else
     DateTime? date1 = DateTime.Today.AddDays(2);
     void  OnSelectedValuesChanged(object values)
     {
+        //bind MacAddress here: 
+        //model.MacAddress=httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
+        model.MacAddress = service.GetMacAddress();// "bind onSelectedValuesChanged ";
 
         //model = vpnDtos.First(x => x.StaffId == staffIdSelected);
     }

@@ -27,7 +27,6 @@
     </PagerContent>
 </MudDataGrid>
 
-
 @code {
     //private string _searchString;
     private IEnumerable<VpnDto> Elements = new List<VpnDto>();   
@@ -36,7 +35,5 @@
     {
         //model=new(){HoTen="Chọn nhân viên", Email="no@m.m"} ;
         Elements = await service.GetFromVpnBHXHInUse();
-
     }
-
 }

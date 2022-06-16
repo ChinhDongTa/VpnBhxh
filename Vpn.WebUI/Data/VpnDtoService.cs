@@ -22,11 +22,18 @@ namespace Vpn.WebUI.Data
         /// <param name="vpn"></param>
         /// <returns></returns>
         public Task RegisterAndDownLoadFile(VpnDto vpn);
+
+        /// <summary>
+        /// Lấy địa chỉ MAC client
+        /// </summary>
+        /// <returns></returns>
+        public string GetMacAddress();
     }
 
     public class VpnDtoService : IVpnDtoService
     {
         private readonly IVpnBhxhRepo vpnRepo = new VpnBhxhRepo();
+        readonly IHttpContextAccessor httpContextAccessor = new HttpContextAccessor();
 
         public IEnumerable<VpnDto> GetFromStaff(IQueryable<NhanVien> staffs)
         {
@@ -38,7 +45,7 @@ namespace Vpn.WebUI.Data
             return vpnDtoList;
         }
 
-        private static VpnDto Staff2VpnDto(NhanVien staff)
+        private  VpnDto Staff2VpnDto(NhanVien staff)
         {
             return new VpnDto()
             {
@@ -50,8 +57,8 @@ namespace Vpn.WebUI.Data
                 SoThang = 1,
                 UngDung = "tst, tcs",
                 ChucVu = staff.MaChucVuNavigation.Ten,
-                DonVi = staff.MaPhongBanNavigation.TenVietTat,
-                MacAddress=GetMacAddress(staff.NhanVienId)
+                DonVi = staff.MaPhongBanNavigation.TenVietTat
+                //MacAddress=GetMacAddress(staff.NhanVienId) => ko nên lấy chỗ này tốn time rất nhiều
                 //BatDau= DateTime.Now,
             };
         }
@@ -77,17 +84,16 @@ namespace Vpn.WebUI.Data
             await vpnRepo.UpdateStaff(vpn.StaffId, vpn.Email, vpn.DienThoai);
         }
 
-        private static string GetMacAddress(int staffId)
+        public string GetMacAddress()
         {
-            if (staffId > 0)
+            var ipAddress = httpContextAccessor.HttpContext.Connection?.RemoteIpAddress.MapToIPv4();
+            if (ipAddress == null)
+                return "ko tìm thấy MacAddress";
+            else
             {
-                var mac = NetworkInterface.GetAllNetworkInterfaces()
-                    .Where(nic => nic.OperationalStatus == OperationalStatus.Up && nic.NetworkInterfaceType != NetworkInterfaceType.Loopback)
-                    .Select(nic => nic.GetPhysicalAddress().ToString())
-                    .FirstOrDefault();
-                return InsertString(mac);
+                var macAddress = NetworkTool.NetworkMacAddress.GetMacAddress(ipAddress);
+                return InsertString(macAddress.ToString()) + ipAddress.ToString();
             }
-            return string.Empty;
         }
 
         private static string InsertString(string macAddress)

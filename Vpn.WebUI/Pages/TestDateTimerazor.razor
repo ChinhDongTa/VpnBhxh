@@ -1,5 +1,10 @@
 ﻿
 @page "/TestDateTime"
+@*@using Microsoft.AspNetCore.HttpOverrides;*@
+@inject IHttpContextAccessor contextAccessor
+<h1>Ip address: @ipAddress</h1>
+<br />
+<h1>Header: @hostName</h1>
 
 <MudDatePicker Label="dd.MM.yyyy" Editable="true" @bind-Date="date1" Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Placeholder="de-AT Date" />
 <MudDatePicker Label="MM/dd/yyyy" Editable="true" @bind-Date="date2" Mask="@(new DateMask("MM/dd/yyyy"))" DateFormat="MM/dd/yyyy" Placeholder="en-US Date" />
@@ -12,4 +17,33 @@
     DateTime? date1 = null;
     DateTime? date2 = DateTime.Today;
     DateTime? date3 = null;
+
+    string ipAddress { get; set; } = "No ip address";
+    string hostName { get; set; } = "no name";
+
+    protected override void OnInitialized()
+    {
+         ipAddress = "first Render: ";
+            ipAddress += contextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            //hostName = requ Request.HttpContext.Connection.RemoteIpAddress;
+            if (contextAccessor.HttpContext != null)
+            {
+                var header =contextAccessor.HttpContext?.Request.Headers["CF-Connecting-IP"].FirstOrDefault() ?? contextAccessor.HttpContext?.Request.Headers["X-Forwarded-For"].FirstOrDefault();;
+                hostName +=" "+ header ?? "null";
+                //foreach (var item in header)
+                //{
+                //    hostName += "<br />" + item.Key;
+                //}
+            }
+            hostName +=" null";
+            StateHasChanged();
+
+    }
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    if(firstRender)
+    //    {
+           
+    //    }
+    //}
 }

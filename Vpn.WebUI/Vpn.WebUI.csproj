@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NetworkTool\NetworkTool.csproj" />
     <ProjectReference Include="..\VpnDomain\VpnDomain.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,7 @@
-﻿namespace Vpn.WebUI.Data
+﻿using Microsoft.AspNetCore.Http.Features;
+using System.Runtime.InteropServices;
+
+namespace Vpn.WebUI.Data
 {
     /// <summary>
     /// Lớp static dùng chung để ép kiểu,...

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.HttpOverrides;
 using MudBlazor.Services;
 using Vpn.WebUI.Data;
 using VpnDomain;
@@ -14,7 +15,8 @@ builder.Services.AddSingleton<IVpnBhxhRepo, VpnBhxhRepo > ();
 builder.Services.AddScoped<IDownLoadService, DownLoadService>();
 builder.Services.AddSingleton<IVpnDtoService, VpnDtoService>();
 
-builder.Services.AddSingleton<HttpClient>();
+//builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddMudServices();
 
 var app = builder.Build();
